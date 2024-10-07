@@ -1,0 +1,148 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Light.eot');
+  src: url('../fonts/Inter-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Inter-Light.woff2') format('woff2'),
+    url('../fonts/Inter-Light.woff') format('woff'),
+    url('../fonts/Inter-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Medium.eot');
+  src: url('../fonts/Inter-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Inter-Medium.woff2') format('woff2'),
+    url('../fonts/Inter-Medium.woff') format('woff'),
+    url('../fonts/Inter-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Regular.eot');
+  src: url('../fonts/Inter-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Inter-Regular.woff2') format('woff2'),
+    url('../fonts/Inter-Regular.woff') format('woff'),
+    url('../fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-SemiBold.eot');
+  src: url('../fonts/Inter-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Inter-SemiBold.woff2') format('woff2'),
+    url('../fonts/Inter-SemiBold.woff') format('woff'),
+    url('../fonts/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  src: url('../fonts/FrankRuhlLibre-Medium.eot');
+  src: url('../fonts/FrankRuhlLibre-Medium.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/FrankRuhlLibre-Medium.woff2') format('woff2'),
+      url('../fonts/FrankRuhlLibre-Medium.woff') format('woff'),
+      url('../fonts/FrankRuhlLibre-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Light.eot');
+  src: url('../fonts/Poppins-Light.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Poppins-Light.woff2') format('woff2'),
+      url('../fonts/Poppins-Light.woff') format('woff'),
+      url('../fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Medium.eot');
+  src: url('../fonts/Poppins-Medium.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Poppins-Medium.woff2') format('woff2'),
+      url('../fonts/Poppins-Medium.woff') format('woff'),
+      url('../fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-SemiBold.eot');
+  src: url('../fonts/Poppins-SemiBold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Poppins-SemiBold.woff2') format('woff2'),
+      url('../fonts/Poppins-SemiBold.woff') format('woff'),
+      url('../fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Bold.eot');
+  src: url('../fonts/Poppins-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Poppins-Bold.woff2') format('woff2'),
+      url('../fonts/Poppins-Bold.woff') format('woff'),
+      url('../fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Regular.eot');
+  src: url('../fonts/Poppins-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Poppins-Regular.woff2') format('woff2'),
+      url('../fonts/Poppins-Regular.woff') format('woff'),
+      url('../fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root{
+  --theme-color:#7abcdb;
+  --black-color:#000000;
+  --secondary-color:#174a6d;
+  --bg-color:#ffffff;
+  --menu-bg:#F7F7F9;
+  --tab-active:#174a6d;
+  --frank-font: 'Frank Ruhl Libre';
+  --bg-opacity: rgba(242 248 251 / 1);
+  --font-poppins: "Poppins", sans-serif;
+}
+body { background-color: var(--bg-color); -ms-overflow-style: block !important; scrollbar-width: none !important; line-height: normal; font-family: "Inter", sans-serif !important; box-sizing: border-box; color: var(--white); text-rendering: optimizeLegibility; -webkit-font-smoothing: subpixel-antialiased; }
+ul, li, a{ padding: 0; margin: 0; list-style: none; text-decoration: none; }
+h1,h2,h3,h4,h5,h6,p{ margin: 0;}
+.form-control:focus, .form-select:focus{ box-shadow: none; outline: none; }
+.p-style{ font-size: 16px; line-height: 30px; color: #2E2E2E; }
+.h4-style{ font-size: 20px; font-weight: 500; }
+.default-btn{ background-color: var(--theme-color); color: #fff; min-width: 162px; min-height: 40px; line-height: 40px; display: inline-block; text-align: center; border: none; box-shadow: none; font-size: 14px; font-weight: 500; border-radius: 5px; position: relative; overflow: hidden; padding: 0 10px;}
+.default-btn:hover{ background-color: var(--theme-color); }
+.default-btn:focus{ background-color: var(--theme-color); }
+.default-btn::after { content: ''; position: absolute; left: -200%; width: 139px; height: 52px; background-color: rgba(255 255 255 / 20%); transform: rotate(99deg); filter: blur(4px); transition: left 0.8s;}
+.default-btn:hover::after{ left: 100%; }
+.float-right { float: right; }
+.fs-7 {font-size: 14px;}
+.bg-custom-color{ background-color: var(--secondary-color); }
+.text-custom-color{ color: var(--secondary-color); }
+.font-frank{ font-family: var(--frank-font); }
+.font-poppins{ font-family: var(--font-poppins); }
+.uppercase{text-transform: uppercase;}
