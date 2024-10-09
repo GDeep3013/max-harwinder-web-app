@@ -9,7 +9,7 @@ import AuthLayout from "../../../layout/Auth";
 import Loading from '../../../components/Loading';
 
 export default function EmployeeTable({ }) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -151,7 +151,7 @@ export default function EmployeeTable({ }) {
                     <td>{user.role}</td>
                     <td><span className='span-badge active-tag'>{user.status}</span></td>
                     <td>
-                      {/* <button className='action-btn' onClick={() => navigate(`/add-user/${user._id}`)}><Edit /></button> */}
+                      <button className='action-btn' onClick={() => navigate(`/pages/add-user/${user.id}`)}><Edit /></button>
                       <button className='action-btn' onClick={() => handleDelete(user.id)}><Remove /></button>
 
                     </td>

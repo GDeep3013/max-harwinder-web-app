@@ -69,9 +69,7 @@ class UserController extends Controller
                     'body' => url('/create-password/' . encrypt($user->id)),
                     'name' => $user->name,
                     'email' => $user->email,
-                    'logo_image' => ""
-
-                    // 'logo_image' => base64_encode(file_get_contents(public_path('/assets/img/logo_new.png')))
+                    // 'logo_image' => base64_encode(file_get_contents(public_path('/assets/images/GOOD_DO_NOT_TOUCH_1.jpg')))
                 ];
                 Mail::to($user->email)->send(new CreatePassword($mailData));
                 return response()->json(['status' => true, 'message' => 'The staff account created successfully.']);
@@ -88,7 +86,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if ($id) {
+            $data = User::where('id', $id)->first();
+            return response()->json(['status' => true, 'data' => $data]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User not found']);
+        }
     }
 
     /**
@@ -104,7 +107,34 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'full_name' => 'required',
+                'email' => 'required|email|max:255|unique:users,email,' . $id,
+            ]);
+
+            // If validation is successful, proceed to store the data
+            $user = User::where('id', $id)->first();
+            $user->name = $validatedData['full_name'] . " " . $request->last_name;
+            $user->email = $validatedData['email'];
+            $user->role = 'Staff';
+            $user->status = $request->status;
+            if ($user->save()) {
+                // $mailData = [
+                //     'title' => 'Mail From Manage Product SKUs',
+                //     'body' => url('/create-password/' . encrypt($user->id)),
+                //     'name' => $user->name,
+                //     'email' => $user->email,
+                //     // 'logo_image' => base64_encode(file_get_contents(public_path('/assets/images/GOOD_DO_NOT_TOUCH_1.jpg')))
+                // ];
+                // Mail::to($user->email)->send(new CreatePassword($mailData));
+                return response()->json(['status' => true, 'message' => 'The staff account update successfully.']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Faild to update staff account']);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['status' => 'error', 'message' => $e->validator->errors()]);
+        }
     }
 
     /**

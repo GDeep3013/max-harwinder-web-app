@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { RightArrowIcon, Edit, Remove } from '../../../components/svg-icons/icons';
 import ProductModal from './ProductModal';
-
+import { useNavigate } from 'react-router-dom';
 const Products = () => {
+  const navigate = useNavigate();
   const [searchProduct, setSearchProduct] = useState("");
   const [productID, setProductID] = useState(0);
   const [variantID, setVariantID] = useState(0);
@@ -12,8 +13,8 @@ const Products = () => {
   const [show, setShow] = useState(false);
   const [productModel, setProductModel] = useState(false);
   const handleClose = () => {
+    getProductDetails(searchProduct);
     setShow(false);
-    getProductDetails(search);
   };
   const handleProductModelClose = () => { setProductModel(false) };
   const handleFetchProductVariant = (productId, variantId) => {
@@ -48,7 +49,7 @@ const Products = () => {
 
   return (
     <Container className="cvs-product-page">
-      <Row className="justify-content-center">
+      <Row className="justify-content-center align-items-center product-header-outer">
         {/* Heading on a separate line */}
         {Config.user.role === "Admin" && <Col xs={4} className="text-start my-3">
           <div className="tabe-outer">
@@ -67,7 +68,7 @@ const Products = () => {
             </div>
           </div>
         </Col>}
-        <Col xs={4} className="text-center my-3">
+        <Col xs={Config.user.role === "Admin" ? 4 : 8} className={Config.user.role === "Admin" ? "text-center my-3" : "text-end my-3"}>
           <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
           
         </Col>
@@ -90,7 +91,8 @@ const Products = () => {
               </div>
             </div>
         </Col>
-
+      </Row>
+      <Row className="justify-content-center">
         {/* Search Field and Delete Button on a new line */}
         <Col xs={12} className="d-flex justify-content-center my-3">
           <Form className="d-flex w-100"> {/* Use w-100 for full width */}

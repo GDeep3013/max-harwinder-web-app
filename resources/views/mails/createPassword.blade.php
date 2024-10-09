@@ -15,7 +15,7 @@
                 <tr>
                     <td valign="middle" align="left" style="padding-left:40px">
                         <a href="{{ env('APP_URL') }}">
-                            <img src="" alt="#" style="max-width:137px;" class="CToWUd" data-bit="iit">
+                        <img src="{{env('APP_URL') . 'assets/images/GOOD_DO_NOT_TOUCH_1.jpg'}}" alt="#" style="max-width:137px;" class="CToWUd" data-bit="iit">
                         </a>
                     </td>
                 </tr>

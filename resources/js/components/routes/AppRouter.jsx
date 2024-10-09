@@ -77,7 +77,7 @@ const AppRouter = () => {
             <Route path="/pages/products/:id" exact element={<Products />} />
           </>
           :
-          <>
+          Config.user.status === 'Active' &&<>
             <Route path="/pages/" exact element={<Products />} />
             <Route path="/pages/products/:id" exact element={<Products />} />
           </>

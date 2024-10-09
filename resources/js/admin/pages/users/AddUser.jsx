@@ -35,7 +35,7 @@ export default function AddEmployee() {
     if (e.target.checked) {
       uStatus = "Active";
     } else {
-      uStatus = "InAcive";
+      uStatus = "InActive";
     }
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -47,7 +47,23 @@ export default function AddEmployee() {
     // Simple email validation regex
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
-
+  useEffect(() => {
+    if (id) {
+      fetch(`/staff/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          let status = data.data.status === "Active" ? true : false;
+          setIsChecked(status);
+          setFormData({
+            full_name: data.data.name.split(' ')[0],
+            last_name: data.data.name.split(' ')[1],
+            email: data.data.email,
+            status: data.data.status, 
+            _method: 'PUT',
+          });
+        });
+    }
+  }, [id]);
 
 
   const validateForm = () => {
@@ -87,9 +103,9 @@ export default function AddEmployee() {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
-    };
+      };
       fetch(url, requestOptions)
         .then((res) => res.json())
         .then((data) => {
@@ -178,30 +194,30 @@ export default function AddEmployee() {
 
   // console.log(formData);
 
-  useEffect(() => {
-    if (id) {
-      const fetchUserDetails = async (id) => {
-        try {
-          const response = await fetch(`/staff/${id}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch user details');
-          }
-          const userData = await response.json();
-          setFormData({
-            full_name: userData.name.split(' ')[0],
-            last_name: userData.name.split(' ')[1],
-            email: userData.email ? userData.email : '',
-            status: userData.status ? userData.status : '',
-            _method: 'PUT',
-          });
-        } catch (error) {
-          console.error('Error fetching user details:', error);
-        }
-      };
-      fetchUserDetails(id);
-    }
+  // useEffect(() => {
+  //   if (id) {
+  //     const fetchUserDetails = async (id) => {
+  //       try {
+  //         const response = await fetch(`/staff/${id}`);
+  //         if (!response.ok) {
+  //           throw new Error('Failed to fetch user details');
+  //         }
+  //         const userData = await response.json();
+  //         setFormData({
+  //           full_name: userData.name.split(' ')[0],
+  //           last_name: userData.name.split(' ')[1],
+  //           email: userData.email ? userData.email : '',
+  //           status: userData.status ? userData.status : '',
+  //           _method: 'PUT',
+  //         });
+  //       } catch (error) {
+  //         console.error('Error fetching user details:', error);
+  //       }
+  //     };
+  //     fetchUserDetails(id);
+  //   }
 
-  }, [id]);
+  // }, [id]);
 
 
 
