@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import {RightArrowIcon, Edit, Remove } from '../../../components/svg-icons/icons';
+import { RightArrowIcon, Edit, Remove } from '../../../components/svg-icons/icons';
 import ProductModal from './ProductModal';
 
 const Products = () => {
   const [searchProduct, setSearchProduct] = useState("");
+  const [productID, setProductID] = useState(0);
+  const [variantID, setVariantID] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
-  const handleClose = () => { setShow(false) };
-  const handleShow = () => setShow(true);
+  const [productModel, setProductModel] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+    getProductDetails(search);
+  };
+  const handleProductModelClose = () => { setProductModel(false) };
+  const handleFetchProductVariant = (productId, variantId) => {
+    setProductID(productId);
+    setVariantID(variantId);
+    setShow(true)
+  }
+
   const handleInputChange = (e) => {
     setSearchProduct(e.target.value);
 
@@ -23,7 +35,7 @@ const Products = () => {
 
   async function getProductDetails(search) {
     setLoading(false);
-    let url = `/product?&search=${encodeURIComponent(search)}`; // Include currentPage in the URL
+    let url = `/product?search=${encodeURIComponent(search)}`; // Include currentPage in the URL
     let result = await fetch(url);
     result = await result.json();
     if (result.status) {
@@ -32,14 +44,51 @@ const Products = () => {
     }
     setLoading(true);
   }
-
+  console.log(products, "ProductID")
 
   return (
     <Container className="cvs-product-page">
       <Row className="justify-content-center">
         {/* Heading on a separate line */}
-        <Col xs={12} className="text-center my-3">
+        {Config.user.role === "Admin" && <Col xs={4} className="text-start my-3">
+          <div className="tabe-outer">
+            <div className="main-back-heading">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-6 p-0">
+                    <div className="profile-btns pt-0">
+                      <Button className="default-btn cancel-btn ml-0" onClick={() => navigate(-1)}>
+                        Back
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Col>}
+        <Col xs={4} className="text-center my-3">
           <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
+          
+        </Col>
+        <Col xs={4} className="text-end my-3">
+            <div className="tabe-outer">
+              <div className="main-back-heading">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-12 p-0 ">
+                      <div className="profile-btns pt-0">
+                        <Button className="default-btn cancel-btn ml-0" onClick={() => {
+                          window.location.href = "/logout";
+                        }}>
+                          Logout
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </Col>
 
         {/* Search Field and Delete Button on a new line */}
@@ -73,36 +122,48 @@ const Products = () => {
         {/* Product Description Area on another line */}
         <Col xs={12} className="d-flex justify-content-center my-3">
           {loading ? (
-            products.map((product, ind) => (
-              <Row className="search_listing_row" key={ind} onClick={handleShow}>
-
-                <Col xs={12}>
-                  <div className="d-flex product_outer">
-                    <div className="product_img">
-                      <img src={product.image} alt="product img" />
-                    </div>
-                    <div className="product-details">
-                      <h6>{product.title}</h6>
-                      <Button className="action-btn product-get"><RightArrowIcon/></Button>
-                      {/* {product.variants.length > 0 ? (
-                        <>
-                          <p>One Size</p>
-                          <p>$24.90</p>
-                        </>
-                      ) : null} */}
-
-                    </div>
-                  </div>
-
-                </Col>
-              </Row>
-            ))
+            products && products.length > 0 ? (
+              products.map((product, productIndex) => (
+                <div className="product-info-outers" key={productIndex}>
+                  {product.variants && product.variants.length > 0 ? (
+                    product.variants.map((variant, variantIndex) => (
+                      <div className="search_listing_row" key={variantIndex} onClick={() => { handleFetchProductVariant(product.id, variant.id) }}>
+                        <Col xs={12}>
+                          <div className="d-flex product_outer">
+                            <div className="product_img">
+                              {/* Safely access the first image */}
+                              {product.images && product.images.length > 0 ? (
+                                <img src={product.images[0]} alt={`${product.title} image`} />
+                              ) : (
+                                <img src="/path/to/default-image.jpg" alt="default img" />
+                              )}
+                            </div>
+                            <div className="product-details ps-4">
+                              <h6>{product.title}</h6>
+                              <Button className="action-btn product-get"><RightArrowIcon /></Button>
+                              <p>Size: <b>{variant.title}</b></p>
+                              <p>Location: <b>{variant.sku ? variant.sku : 'N/A'}</b></p>
+                            </div>
+                          </div>
+                        </Col>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No variants available</p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No products available</p>
+            )
           ) : (
-            <p>Loading products...</p> // Optional loading message
+            <p>Loading products...</p>
           )}
+
         </Col>
       </Row>
-      <ProductModal show={show} handleClose={handleClose} />
+      {show && <ProductModal show={show} handleClose={handleClose} productID={productID} variantID={variantID} />}
+
     </Container>
   )
 }

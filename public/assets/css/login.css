@@ -1,0 +1,179 @@
+@import url(style.css);
+.startOuter {
+    background-color: #FBF9F7;
+    height: 100%;
+    width: 100%;
+    display: table;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.startOuter .loginOuter {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.verticalCenter .logo img {
+    width: 198px;
+}
+
+.login_image_text {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 325px;
+    text-align: center;
+}
+
+.welcomeBox {
+    background-color: var(--white);
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 24px;
+}
+
+.welcomeBox h2 {
+    color: var(--black);
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.welcomeBox p {
+    color: #848483;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.start_btn {
+    margin-top: 39px;
+}
+
+.start_btn .custom_btn {
+    min-width: 120px;
+    min-height: 42px;
+    line-height: 42px;
+    text-align: center;
+}
+
+.start_btn .custom_btn:hover {
+    text-decoration: none;
+    color: var(--white);
+}
+
+.start_btn p {
+    display: inline-block;
+    margin-left: 29px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.loginOuter .verticalCenter {
+    height: 100%;
+    display: table;
+    width: 100%;
+}
+
+.loginOuter .verticalCenter .textCenter {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.verticalCenter h4 {
+    font-size: 32px;
+    font-weight: 500;
+    color: #0D2345;
+    position: relative;
+}
+
+.verticalCenter h4 img {
+    position: absolute;
+    top: -11px;
+    left: -34px;
+}
+
+.form-control:focus {
+    border-color: #898989;
+}
+
+.start_btn h5 {
+    font-size: 13px;
+    color: var(--black);
+    font-weight: 400;
+}
+
+.start_btn h5 a {
+    color: var(--black);
+    font-weight: 600;
+}
+
+.start_btn h5 a:hover {
+    text-decoration: none;
+}
+
+.start_btn.login {
+    text-align: center;
+}
+
+.start_btn.login .custom_btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.startOuter .loginOuter .form-logo img {
+    max-width: 190px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.startOuter .form-img {
+    height: 100vh;
+    position: relative;
+    background: url("../img/form-truck.webp")no-repeat;
+    background-size: cover;
+}
+
+.startOuter form .forgot-pass a {
+    font-weight: 600;
+    padding: 0px;
+    text-decoration: underline;
+}
+
+.startOuter form .forgot-pass {
+    float: right;
+}
+
+.startOuter form {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.startOuter form label {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.startOuter .form-logo {
+    position: absolute;
+    left: 30px;
+    top: 50px;
+}
+
+.bg-login-image .verticalCenter {
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.startOuter .fortruck img {
+    width: 100%;
+    max-width: 100%;
+}

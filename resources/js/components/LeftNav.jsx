@@ -21,7 +21,7 @@ export default function LeftNav() {
 
       <div className="sideNavLogo">
         <button onClick={toggleMenu} className="toggleMenu MenuOpen" ><Menuicon /></button>
-        <img src="/assets/images/logoheader.svg" alt="Logo" />
+        <img src="/assets/images/GOOD_DO_NOT_TOUCH_1.jpg" alt="Logo" />
 
         <hr className="sideBorder" />
       </div>

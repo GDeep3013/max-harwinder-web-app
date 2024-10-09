@@ -18,10 +18,10 @@ export default function EmployeeTable({ }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getEmployee();
+    getEmployee(searchTerm, currentPage);
   }, [searchTerm, currentPage]);
 
-  async function getEmployee() {
+  async function getEmployee(searchTerm, currentPage) {
     setLoading(false);
     let url = `/staff?&search=${encodeURIComponent(searchTerm)}&page=${currentPage}`; // Include currentPage in the URL
     let result = await fetch(url);
@@ -44,7 +44,7 @@ export default function EmployeeTable({ }) {
     try {
       const confirmResult = await Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "You won't be able to delete this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#000",
@@ -53,20 +53,28 @@ export default function EmployeeTable({ }) {
       });
 
       if (confirmResult.isConfirmed) {
-        const response = await fetch(`api/delete-user/${id}`, {
-          method: 'DELETE'
+        const response = await fetch(`/staff/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
-        if (response.ok) {
-          await Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+        const responseData = await response.json();
+        if (responseData.status) {
+          Swal.fire({
             icon: "success",
-            confirmButtonColor: "#000",
+            title: responseData.message,
+            showConfirmButton: false,
+            timer: 1500
           });
-          // alert(response.message);
-          getEmployee();
+          setTimeout(function () { getEmployee(searchTerm, currentPage) }, 2000);
         } else {
-          console.error('Failed to delete user');
+          Swal.fire({
+            icon: "error",
+            title: responseData.message,
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       }
     } catch (error) {

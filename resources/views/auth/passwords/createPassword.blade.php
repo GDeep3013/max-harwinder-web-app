@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="startOuter">
+<div class="startOuter login-outer-page">
     <div class="loginOuter">
 
 
@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-lg-6 d-lg-block bg-login-image">
                 <div class="form-img">
-                    <div class="form-logo">
+                    <!-- <div class="form-logo">
                         <a href="javascript:;"> <img src="/assets/img/logo.png" alt="logo"> </a>
-                    </div>
+                    </div> -->
 
                     <!-- <div class="verticalCenter">
                     <div class="fortruck">

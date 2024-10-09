@@ -112,7 +112,16 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(!empty($id)) {
+            $user = User::find($id);
+            if($user->delete()){
+                return response()->json(['statue' => false, 'message' => "User delete successfully"]);
+            } else {
+                return response()->json(['statue' => false, 'message' => "Failed to delete"]);
+            }
+        } else {
+            return response()->json(['statue' => false, 'message' => "User not found"]);
+        }
     }
 
     public function getStaff($id)

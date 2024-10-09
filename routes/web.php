@@ -17,6 +17,8 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -26,20 +28,26 @@ Route::get('/logout', function () {
     return redirect('/login');
 });
 
+
 Route::get('/create-password/{id}', [UserController::class ,'getStaff']);
 Route::post('/create-password', [UserController::class ,'confirmPassword'])->name('create.password');
-// Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes();
+
+// Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
     Route::get('/pages/', [HomeController::class, 'index']);
-    Route::resource('staff', UserController::class);
-    Route::get('/product', [ProductController::class, 'getShopifyProducts']);
     Route::get('/pages/{page}', [HomeController::class, 'index']);
     Route::get('/pages/{page}/{id}', [HomeController::class, 'index']);
+    Route::resource('staff', UserController::class);
+    Route::get('/product', [ProductController::class, 'getShopifyProducts']);
+    Route::get('/get-product', [ProductController::class, 'getShopifyProductsVariants']);
+    Route::get('update-product', [ProductController::class, 'updateShopifyProductsVariantSKU']);
+    
 });
 // Route::group(['middleware' => ['auth']], function () {
 //     Route::get('/login', [UserController::class, 'store']);
 // });
+
 
 
 // Route::get('/', function (Request $request) {

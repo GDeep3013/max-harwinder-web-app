@@ -9,7 +9,7 @@
 /* @media screen and (min-width:1025px) and (max-width:1280px) {
     .graph-box .graph_inner { width: 100% !important; }
     .graph-box .graph_inner.bottom_graph canvas{ width: 100% !important; height: 332px !important;}
-    
+
 } */
 @media screen and (min-width:768px) and (max-width:1024px) {
     .survey_box{ padding: 20px; }
@@ -30,17 +30,17 @@
     .survey-inner .survey-container h3 { font-size: 19px; margin-top: 25px; }
 }
 @media screen and (max-width:767px) {
-    nav.sideNavOuter.open .sideNavLogo img { display: block; } 
+    nav.sideNavOuter.open .sideNavLogo img { display: block; }
     nav.sideNavOuter.open { width: 273px; }
     nav.sideNavOuter.open ul.sideNavList { width: auto; min-height: calc(100vh - 106px); }
     nav.sideNavOuter.open ul.sideNavList li.sideNavItem a { display: flex; font-size: 14px; line-height: 22px; max-width: 100%; padding: 13px 10px; }
     nav.sideNavOuter.open .sideNavList li.sideNavItem svg { margin: 0 16px 0 0; }
-    nav.sideNavOuter.open .sideNavList li.LogoutMenu { width: 100%; left: 16px; } 
+    nav.sideNavOuter.open .sideNavList li.LogoutMenu { width: 100%; left: 16px; }
     nav.sideNavOuter.open .sideNavList li.sideNavItem a.active::after{ background-color: var(--theme-color)!important; }
-    .side-nav.sidenavMobile { margin-left: -273px; } 
+    .side-nav.sidenavMobile { margin-left: -273px; }
     .wrapper-outer .side-nav { transition: all ease-in-out 0.5s; position: absolute; z-index: 9; }
-    button.MenuOpen { right: -27px; top: 0px; border-radius: 0px; } 
-    table.table { white-space: nowrap; } 
+    button.MenuOpen { right: -27px; top: 0px; border-radius: 0px; }
+    table.table { white-space: nowrap; }
     .tabe-outer .table-heading { padding: 9px 0px; }
     table-scroll { overflow: scroll; }
     .survey_box { padding: 20px; }
@@ -90,6 +90,12 @@
     .chat-gpt-summary .summary-item p{ font-size: 14px; }
     .survey-container h2 { font-size: 20px; margin-bottom: 10px; }
     .survey-container .graph-box p { margin-top: 5px !important; font-size: 15px; }
+    .search_listing_row .product_img img{ height: 102px; }
+    .cvs-product-page .text-center h3 { font-size: 20px; margin: 11px 0 0 0; }
+    .search_listing_row .product-details h6{ font-size: 14px; }
+    .cvs-product-page form input.form-control { font-size: 14px; padding-right: 31px; }
+    .cvs-product-page form button.action-btn{ right: 3px; }
+
 }
 
 @media screen and (max-width:480px) {

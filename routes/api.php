@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['prefix' => 'v1'], function () {
+
     Route::get('/product', [ProductController::class, 'getShopifyProducts']);
-});
+    Route::any('v1/update-product', [ProductController::class, 'updateShopifyProductsVariantSKU']);
+

@@ -1,73 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<div class="startOuter login-outer-page">
+    <div class="loginOuter">
 
-                <div class="card-body">
+
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+        <div class="col-lg-6 d-lg-block bg-login-image">
+            <div class="form-img">
+                    <!-- <div class="form-logo">
+                        <a href="javascript:;"> <img src="/assets/img/logo.png" alt="logo"> </a>
+                    </div> -->
+
+                <!-- <div class="verticalCenter">
+                    <div class="fortruck">
+                        <img src="/assets/img/form-truck.png" alt="form-truck">
+                    </div>
+                </div> -->
+            </div>
+            
+        </div>
+        <div class="col-lg-6">
+            <div class="verticalCenter">
+                <div class="p-5 textCenter vertical-login">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        <h4>
+                            Login
+                        </h4>
+                        <p>Sign into your pages account</p>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <div class="form-group">
+                        <label for="">Password</label>
+                        @if (Route::has('password.request'))
+                        <div class="forgot-pass">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            @endif
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+
+                            
                         </div>
+                        <div class="start_btn login">
+                            <button type="submit" class="custom_btn">
+                                <!-- {{ __('Login') }} -->
+                                Sign In
+                            </button>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
+                           
+                            <!-- <h5>Don't have an account? <a href="#">Create Account</a> -->
+                           
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+                       
+                
+    </div>
+
 </div>
 @endsection
