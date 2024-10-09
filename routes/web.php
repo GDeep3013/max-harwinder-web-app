@@ -34,7 +34,7 @@ Route::post('/create-password', [UserController::class ,'confirmPassword'])->nam
 Auth::routes();
 
 // Auth::routes(['register' => false]);
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'check.user.status'])->group(function () {
     Route::get('/pages/', [HomeController::class, 'index']);
     Route::get('/pages/{page}', [HomeController::class, 'index']);
     Route::get('/pages/{page}/{id}', [HomeController::class, 'index']);

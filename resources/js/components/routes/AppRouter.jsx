@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate  } from "react-router-dom";
 import Home from "../../pages/Home";
 import Employees from "../../admin/pages/users/Users";
 import AddEmployee from "../../admin/pages/users/AddUser";
@@ -76,11 +76,11 @@ const AppRouter = () => {
             <Route path="/pages/products" exact element={<Products />} />
             <Route path="/pages/products/:id" exact element={<Products />} />
           </>
-          :
-          Config.user.status === 'Active' &&<>
+          : Config.user.status === 'Active' && <>
             <Route path="/pages/" exact element={<Products />} />
             <Route path="/pages/products/:id" exact element={<Products />} />
           </>
+            
       }
     </Routes>
   );
