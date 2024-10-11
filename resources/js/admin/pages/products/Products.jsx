@@ -1,10 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { RightArrowIcon, Edit, Remove, Logout } from '../../../components/svg-icons/icons';
 import ProductModal from './ProductModal';
 import { useNavigate } from 'react-router-dom';
 const Products = () => {
   const navigate = useNavigate();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Auto-focus the input field when the component mounts
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    // Handle the paste event
+    const handlePaste = (event) => {
+      const pastedData = event.clipboardData.getData('Text');
+      // If needed, update state or call any custom logic with the pastedData
+      console.log('Pasted content:', pastedData);
+    };
+
+    // Add event listener for paste
+    const inputElement = inputRef.current;
+    inputElement.addEventListener('paste', handlePaste);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      inputElement.removeEventListener('paste', handlePaste);
+    };
+  }, []); // Empty dependency array to run only once when the component mounts
+
   const [searchProduct, setSearchProduct] = useState("");
   const [productID, setProductID] = useState(0);
   const [variantID, setVariantID] = useState(0);
@@ -40,7 +66,7 @@ const Products = () => {
     let result = await fetch(url);
     result = await result.json();
     if (result.status) {
-      console.log(result, "getEmployee") // Set totalPages received from the backend
+      //console.log(result, "getEmployee") // Set totalPages received from the backend
       setProducts(result.data)
     }
     setLoading(true);
@@ -125,6 +151,7 @@ const Products = () => {
                 value={searchProduct}
                 onChange={(e) => { handleInputChange(e) }}
                 style={{ flexGrow: 1, height: '100%' }} // Ensures the search input takes available space
+                ref={inputRef} // Attach the ref to the input field
               />
 
               {/* Delete Button */}
