@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Modal, Row, Col, Form } from 'react-bootstrap';
 import { RightArrowIcon, Edit, Remove } from '../../../components/svg-icons/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2'
 
 const ProductModal = ({ show, handleClose, productID, variantID }) => {
   const [loading, setLoading] = useState(true);
@@ -60,12 +61,15 @@ const ProductModal = ({ show, handleClose, productID, variantID }) => {
 
       const result = await response.json();
       setLoading(true);
-      console.log(result, productIds, variantIds, "Updated SKU")
       if (result.status) {
-        console.log(result, productIds, variantIds, "Updated SKU111")
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: result.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
         handleClose();
-        // show(result.message, { duration: 2000 })
-        // getSyncProducts(page, queryValue);
       } else {
         console.log(result, "error")
       }

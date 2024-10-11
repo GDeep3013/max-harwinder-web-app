@@ -1087,15 +1087,16 @@ select {
 .login-outer-page .form-img { background-color: #7abcdb; width: 100%; height: 100%; }
 .login-outer-page { overflow: hidden; }
 main.login-end { padding: 0px !important; }
-.login-outer-page .row { min-height: 94.8vh; } 
+/* .login-outer-page .row { min-height: 94.8vh; } */
 .startOuter.login-outer-page { min-height: 94.8vh; }
 .login-outer-page .form-group label { font-size: 14px; font-weight: 600; }
-.login-outer-page button.custom_btn { background-color: #7abcdb; }
+.login-outer-page button.custom_btn { background-color: #b89b8b; }
 /* btn toggle css */
 .actions {
     margin-left: 14px;
 }
 .form-control:focus{ box-shadow: none !important; }
+.dashboard-logo { text-align: center; background-color: #fff; padding: 7px; }
 /* Start responsive css */
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -1259,4 +1260,23 @@ main.login-end { padding: 0px !important; }
             height: 70px;
         }
         
+}
+
+
+@media(max-width: 575px) {
+    .startOuter form {
+        padding: 24px;
+    }
+    .login-outer-page .form-group label {
+        margin-bottom: 4px;
+    }
+    .startOuter form .forgot-pass a {
+        font-weight: 500;
+        font-size: 12px;
+        margin-bottom: -10px;
+    }
+    .loginOuter .verticalCenter .textCenter {
+        padding: 0px !important;
+    }
+
 }

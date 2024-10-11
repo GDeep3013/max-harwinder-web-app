@@ -98,12 +98,10 @@ class ProductController extends Controller
         Log::info("datawqww", ['data' => $data, 'url' => "https://610-weblab.myshopify.com/admin/api/".env('SHOPIFY_API_VERSION')."/variants/".$validatedData['variantId'].".json"]);
             $response = Http::withHeaders([
                 'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
-            ])->put("https://610-weblab.myshopify.com/admin/api/".env('SHOPIFY_API_VERSION')."/variants/".$validatedData['variantId'].".json", $data);
+            ])->put("https://".env('SHOPIFY_STORE_NAME')."/admin/api/".env('SHOPIFY_API_VERSION')."/variants/".$validatedData['variantId'].".json", $data);
             $product = $response->json();
-            Log::info("product211221", ['product' => $data]);
-         return response()->json(['status' => true, 'message' => $product]);
             if(isset($product['variant'])) {
-                return response()->json(['status' => true, 'message' => 'Location can be update successfully']);
+                return response()->json(['status' => true, 'message' => 'Location has been update successfully']);
             } else {
                 return response()->json(['status' => false, 'message' => 'Failed to update location']);
             }

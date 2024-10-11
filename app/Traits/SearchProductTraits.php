@@ -15,7 +15,7 @@ trait SearchProductTraits
         // $searchTerm = "134567890";
 
         if (ctype_digit($searchTerm)) {
-            $variables = "variants.barcode:$searchTerm";
+            $variables = "barcode:$searchTerm";
         } else {
             $variables = "title:$searchTerm";
         }
@@ -24,7 +24,7 @@ trait SearchProductTraits
         $client = new Client();
         $query = <<<GRAPHQL
                 query {
-                    products(first: 1, query: "$variables") {
+                    products(first: 10, query: "$variables") {
                         edges {
                             node {
                                 id

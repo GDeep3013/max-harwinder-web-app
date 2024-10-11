@@ -145,13 +145,17 @@ class UserController extends Controller
         if(!empty($id)) {
             $user = User::find($id);
             if($user->delete()){
-                return response()->json(['statue' => false, 'message' => "User delete successfully"]);
+                return response()->json(['status' => true, 'message' => "User delete successfully"]);
             } else {
-                return response()->json(['statue' => false, 'message' => "Failed to delete"]);
+                return response()->json(['status' => false, 'message' => "Failed to delete"]);
             }
         } else {
-            return response()->json(['statue' => false, 'message' => "User not found"]);
+            return response()->json(['status' => false, 'message' => "User not found"]);
         }
+    }
+
+    public function passwordRequest () {
+        return view('auth.passwords.email');
     }
 
     public function getStaff($id)

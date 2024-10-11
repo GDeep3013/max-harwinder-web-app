@@ -29,13 +29,19 @@ export default function EmployeeTable({ }) {
     if (result.status) {
       console.log(result, "getEmployee")
       setEmployee(result.users.data);
-      setTotalPages(result.users.total); // Set totalPages received from the backend
+      setCurrentPage(result.users.current_page); // Set current page from API response
+      setTotalPages(result.users.last_page); // Set totalPages received from the backend
     }
     setLoading(true);
   }
 
-  const handlePaginationClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  // const handlePaginationClick = (pageNumber) => {
+  //   setCurrentPage(pageNumber);
+  // };
+  const handlePaginationClick = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page); // Set the new page
+    }
   };
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -62,14 +68,16 @@ export default function EmployeeTable({ }) {
         const responseData = await response.json();
         if (responseData.status) {
           Swal.fire({
+            position: "center",
             icon: "success",
             title: responseData.message,
             showConfirmButton: false,
             timer: 1500
           });
-          setTimeout(function () { getEmployee(searchTerm, currentPage) }, 2000);
+          getEmployee(searchTerm, currentPage);
         } else {
           Swal.fire({
+            position: "center",
             icon: "error",
             title: responseData.message,
             showConfirmButton: false,
@@ -149,7 +157,7 @@ export default function EmployeeTable({ }) {
                   </td> */}
                     <td className='text-lowercase'> <Link href="#" > {user.email} </Link></td>
                     <td>{user.role}</td>
-                    <td><span className='span-badge active-tag'>{user.status}</span></td>
+                    <td><span className={user.status === "Active" ? 'span-badge active-tag' : 'span-badge inactive-tag' }>{user.status}</span></td>
                     <td>
                       <button className='action-btn' onClick={() => navigate(`/pages/add-user/${user.id}`)}><Edit /></button>
                       <button className='action-btn' onClick={() => handleDelete(user.id)}><Remove /></button>

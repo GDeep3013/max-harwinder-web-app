@@ -31,9 +31,10 @@ Route::get('/logout', function () {
 
 Route::get('/create-password/{id}', [UserController::class ,'getStaff']);
 Route::post('/create-password', [UserController::class ,'confirmPassword'])->name('create.password');
-Auth::routes();
+Route::get('/password/reset ', [UserController::class ,'passwordRequest'])->name('password.request');
+// Auth::routes();
 
-// Auth::routes(['register' => false]);
+Auth::routes(['register' => false]);
 Route::middleware(['auth', 'check.user.status'])->group(function () {
     Route::get('/pages/', [HomeController::class, 'index']);
     Route::get('/pages/{page}', [HomeController::class, 'index']);

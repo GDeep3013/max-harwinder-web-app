@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthLayout from "../../../layout/Auth";
 import { Col, Row, Container, Form, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import { RightArrowIcon, Edit, Remove, Logout } from '../../../components/svg-icons/icons';
 import Swal from 'sweetalert2'
 import axios from "axios"
 
@@ -230,8 +231,8 @@ export default function AddEmployee() {
               <div className="row">
                 <div className="col-md-6 p-0">
                   <div className="profile-btns pt-0">
-                    <Button className="default-btn cancel-btn ml-0" onClick={() => navigate(-1)}>
-                      Back
+                    <Button className="default-btn cancel-btn ml-0 product-back-btn" onClick={() => navigate(-1)}>
+                      <RightArrowIcon />
                     </Button>
                   </div>
                 </div>

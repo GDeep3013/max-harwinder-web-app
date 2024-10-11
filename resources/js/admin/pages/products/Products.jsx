@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { RightArrowIcon, Edit, Remove } from '../../../components/svg-icons/icons';
+import { RightArrowIcon, Edit, Remove, Logout } from '../../../components/svg-icons/icons';
 import ProductModal from './ProductModal';
 import { useNavigate } from 'react-router-dom';
 const Products = () => {
@@ -45,128 +45,149 @@ const Products = () => {
     }
     setLoading(true);
   }
-  console.log(products, "ProductID")
+  const isDigitsOnly = (str) => /^\d+$/.test(str);
+  const isTextOnly = (str) => /^[a-zA-Z\s]+$/.test(str);
+  const filteredProducts = products.reduce((acc, product) => {
+    let matchedVariants = [];
+    if (isDigitsOnly(searchProduct)) {
+      matchedVariants = product.variants.filter(variant => variant.barcode === searchProduct);
+    } else if (isTextOnly(searchProduct)) {
+      console.log(`Checking for title: ${searchProduct} in product ${product.title}`);
+      if (product.title.toLowerCase().includes(searchProduct.toLowerCase())) {
+        matchedVariants = product.variants;
+      }
+    }
+    if (matchedVariants.length > 0) {
+      const uniqueProduct = {
+        ...product,
+        variants: matchedVariants
+      };
+      if (!acc.some(p => p.id === uniqueProduct.id)) {
+        acc.push(uniqueProduct);
+      }
+    }
 
+    return acc;
+  }, []);
   return (
-    <Container className="cvs-product-page">
-      <Row className="justify-content-center align-items-center product-header-outer">
-        {/* Heading on a separate line */}
-        {Config.user.role === "Admin" && <Col xs={4} className="text-start my-3">
-          <div className="tabe-outer">
-            <div className="main-back-heading">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-6 p-0">
-                    <div className="profile-btns pt-0">
-                      <Button className="default-btn cancel-btn ml-0" onClick={() => navigate(-1)}>
-                        Back
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Col>}
-        <Col xs={Config.user.role === "Admin" ? 4 : 8} className={Config.user.role === "Admin" ? "text-center my-3" : "text-end my-3"}>
-          <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
-          
-        </Col>
-        <Col xs={4} className="text-end my-3">
+    <>
+      <div className="dashboard-logo">
+        <img src="/assets/images/GOOD_DO_NOT_TOUCH_1.jpg" alt="Logo" />
+      </div>
+      <Container className="cvs-product-page">
+        <div className="product-header-outer">
+          {/* Heading on a separate line */}
+          <div className="product-act-btn">
+          {Config.user.role === "Admin" && <div className="text-start my-3">
             <div className="tabe-outer">
               <div className="main-back-heading">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-12 p-0 ">
                       <div className="profile-btns pt-0">
-                        <Button className="default-btn cancel-btn ml-0" onClick={() => {
-                          window.location.href = "/logout";
-                        }}>
-                          Logout
+                        <Button className="default-btn cancel-btn ml-0 product-back-btn" onClick={() => navigate(-1)}>
+                          <RightArrowIcon />
                         </Button>
                       </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        {/* Search Field and Delete Button on a new line */}
-        <Col xs={12} className="d-flex justify-content-center my-3">
-          <Form className="d-flex w-100"> {/* Use w-100 for full width */}
-            {/* Search Input */}
-            <Form.Control
-              type="text"
-              placeholder="Search"
-              className="mr-2"
-              aria-label="Search"
-              value={searchProduct}
-              onChange={(e) => { handleInputChange(e) }}
-              style={{ flexGrow: 1, height: '100%' }} // Ensures the search input takes available space
-            />
+            </div>}
+            </div>
+          <div className="product-act-btn">
+          <div className={Config.user.role === "Admin" ? "text-center my-3" : "text-end my-3"}>
+            <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
 
-            {/* Delete Button */}
-            <button
-              className='action-btn'
-              onClick={() => {
-                setSearchProduct(''); // Clear the search field
-                console.log("Search field cleared");
-              }}
-              style={{ marginLeft: '8px' }} // Adjusts spacing from the input
-            >
-              <Remove />
-            </button>
-          </Form>
-        </Col>
-
-        {/* Product Description Area on another line */}
-        <Col xs={12} className="d-flex justify-content-center my-3">
-          {loading ? (
-            products && products.length > 0 ? (
-              products.map((product, productIndex) => (
-                <div className="product-info-outers" key={productIndex}>
-                  {product.variants && product.variants.length > 0 ? (
-                    product.variants.map((variant, variantIndex) => (
-                      <div className="search_listing_row" key={variantIndex} onClick={() => { handleFetchProductVariant(product.id, variant.id) }}>
-                        <Col xs={12}>
-                          <div className="d-flex product_outer">
-                            <div className="product_img">
-                              {/* Safely access the first image */}
-                              {product.images && product.images.length > 0 ? (
-                                <img src={product.images[0]} alt={`${product.title} image`} />
-                              ) : (
-                                <img src="/path/to/default-image.jpg" alt="default img" />
-                              )}
-                            </div>
-                            <div className="product-details ps-4">
-                              <h6>{product.title}</h6>
-                              <Button className="action-btn product-get"><RightArrowIcon /></Button>
-                              <p>Size: <b>{variant.title}</b></p>
-                              <p>Location: <b>{variant.sku ? variant.sku : 'N/A'}</b></p>
-                            </div>
-                          </div>
-                        </Col>
+          </div>
+          </div>
+          <div className="product-act-btn">
+          <div className="text-end my-3">
+            <div className="tabe-outer">
+              <div className="main-back-heading">
+                      <div className="profile-btns pt-0">
+                        <Button className="default-btn cancel-btn ml-0 product-logout-icon" onClick={() => {
+                          window.location.href = "/logout";
+                        }}>
+                          <Logout />
+                        </Button>
                       </div>
-                    ))
-                  ) : (
-                    <p>No variants available</p>
-                  )}
-                </div>
-              ))
+              </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <Row className="justify-content-center">
+          {/* Search Field and Delete Button on a new line */}
+          <Col xs={12} className="d-flex justify-content-center my-3">
+            <Form className="d-flex w-100"> {/* Use w-100 for full width */}
+              {/* Search Input */}
+              <Form.Control
+                type="text"
+                placeholder="Search"
+                className="mr-2"
+                aria-label="Search"
+                value={searchProduct}
+                onChange={(e) => { handleInputChange(e) }}
+                style={{ flexGrow: 1, height: '100%' }} // Ensures the search input takes available space
+              />
+
+              {/* Delete Button */}
+              <button
+                className='action-btn'
+                onClick={() => {
+                  setSearchProduct(''); // Clear the search field
+                  console.log("Search field cleared");
+                }}
+                style={{ marginLeft: '8px' }} // Adjusts spacing from the input
+              >
+                <Remove />
+              </button>
+            </Form>
+          </Col>
+
+          {/* Product Description Area on another line */}
+          <Col xs={12} className="d-flex justify-content-center my-3 product-list-outer">
+            {loading ? (
+              filteredProducts && filteredProducts.length > 0 ? (
+                filteredProducts.map((product, productIndex) => (
+                  <div className="product-info-outers" key={productIndex}>
+                    {product.variants && product.variants.length > 0 ? (
+                      product.variants.map((variant, variantIndex) => (
+                        <div className="search_listing_row" key={variantIndex} onClick={() => { handleFetchProductVariant(product.id, variant.id) }}>
+                          <Col xs={12}>
+                            <div className="d-flex product_outer">
+                              <div className="product_img">
+                                {/* Safely access the first image */}
+                                {product.images && product.images.length > 0 ? (
+                                  <img src={product.images[0]} alt={`${product.title} image`} />
+                                ) : (
+                                  <img src="/path/to/default-image.jpg" alt="default img" />
+                                )}
+                              </div>
+                              <div className="product-details ps-4">
+                                <h6>{product.title}</h6>
+                                <Button className="action-btn product-get"><RightArrowIcon /></Button>
+                                <p>Size: <b>{variant.title}</b></p>
+                                <p>Location: <b>{variant.sku ? variant.sku : 'N/A'}</b></p>
+                              </div>
+                            </div>
+                          </Col>
+                        </div>
+                      ))
+                    ) : (
+                      <p>No variants available</p>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p>No products available</p>
+              )
             ) : (
-              <p>No products available</p>
-            )
-          ) : (
-            <p>Loading products...</p>
-          )}
+              <p>Loading products...</p>
+            )}
 
-        </Col>
-      </Row>
-      {show && <ProductModal show={show} handleClose={handleClose} productID={productID} variantID={variantID} />}
+          </Col>
+        </Row>
+        {show && <ProductModal show={show} handleClose={handleClose} productID={productID} variantID={variantID} />}
 
-    </Container>
+      </Container>
+    </>
   )
 }
 
