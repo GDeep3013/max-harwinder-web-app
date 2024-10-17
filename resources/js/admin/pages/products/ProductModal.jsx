@@ -129,7 +129,7 @@ const ProductModal = ({ show, handleClose, productID, variantID }) => {
                 })
               )
             ) : (
-              <p>Loading products...</p>
+              <p>Loading Locations...</p>
             )}
           </Col>
         </Row>
