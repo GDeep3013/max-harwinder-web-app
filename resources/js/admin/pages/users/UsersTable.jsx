@@ -97,10 +97,10 @@ export default function EmployeeTable({ }) {
             <div className='table-heading'>
               <Container>
                 <Row>
-                  <Col md={6}>
-                    {/* <span className='span-badge primary-tag'>12 members</span> */}
-                  </Col>
-                  <Col md={6} className='text-end p-0'>
+                  {/* <Col md={6}>
+                    <span className='span-badge primary-tag'>12 members</span>
+                  </Col> */}
+                  <Col md={12} className='text-end p-0'>
                     <form className='d-flex justify-content-end'>
                       <input type='search' placeholder='Search...' value={searchTerm} onChange={handleSearch} className='form-control' />
                       <Link to="/pages/add-user" className='default-btn' >Add User  <PLusIcon /> </Link>

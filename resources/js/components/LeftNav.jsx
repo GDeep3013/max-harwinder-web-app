@@ -48,7 +48,7 @@ export default function LeftNav({isMenuOpen, setIsMenuOpen}) {
                 className={location.pathname == "/pages/products" ? "active" : ""}
               >
                 <ProjectIcon />
-                Products
+                Locations
               </NavLink>
 
             </li>

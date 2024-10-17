@@ -29,6 +29,7 @@ const Products = () => {
     return () => {
       inputElement.removeEventListener('paste', handlePaste);
     };
+
   }, []); // Empty dependency array to run only once when the component mounts
 
   const [searchProduct, setSearchProduct] = useState("");
@@ -42,7 +43,9 @@ const Products = () => {
     getProductDetails(searchProduct);
     setShow(false);
   };
+
   const handleProductModelClose = () => { setProductModel(false) };
+
   const handleFetchProductVariant = (productId, variantId) => {
     setProductID(productId);
     setVariantID(variantId);
@@ -73,12 +76,12 @@ const Products = () => {
   }
   const isDigitsOnly = (str) => /^\d+$/.test(str);
   const isTextOnly = (str) => /^[a-zA-Z\s]+$/.test(str);
+
   const filteredProducts = products.reduce((acc, product) => {
     let matchedVariants = [];
     if (isDigitsOnly(searchProduct)) {
       matchedVariants = product.variants.filter(variant => variant.barcode === searchProduct);
     } else if (isTextOnly(searchProduct)) {
-      console.log(`Checking for title: ${searchProduct} in product ${product.title}`);
       if (product.title.toLowerCase().includes(searchProduct.toLowerCase())) {
         matchedVariants = product.variants;
       }
@@ -92,9 +95,9 @@ const Products = () => {
         acc.push(uniqueProduct);
       }
     }
-
     return acc;
   }, []);
+
   return (
     <>
       <div className="dashboard-logo">
@@ -107,42 +110,39 @@ const Products = () => {
           {Config.user.role === "Admin" && <div className="text-start my-3">
             <div className="tabe-outer">
               <div className="main-back-heading">
-                      <div className="profile-btns pt-0">
-                        <Button className="default-btn cancel-btn ml-0 product-back-btn" onClick={() => navigate(-1)}>
-                          <RightArrowIcon />
-                        </Button>
-                      </div>
+                  <div className="profile-btns pt-0">
+                    <Button className="default-btn cancel-btn ml-0 product-back-btn" onClick={() => navigate(-1)}>
+                      <RightArrowIcon />
+                    </Button>
+                  </div>
               </div>
             </div>
             </div>}
             </div>
           <div className="product-act-btn">
-          <div className={Config.user.role === "Admin" ? "text-center my-3" : "text-end my-3"}>
-            <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
-
-          </div>
+            <div className={Config.user.role === "Admin" ? "text-center my-3" : "text-end my-3"}>
+              <h3>PRODUCT LOOKUP</h3> {/* Full-width heading */}
+            </div>
           </div>
           <div className="product-act-btn">
-          <div className="text-end my-3">
-            <div className="tabe-outer">
-              <div className="main-back-heading">
-                      <div className="profile-btns pt-0">
-                        <Button className="default-btn cancel-btn ml-0 product-logout-icon" onClick={() => {
-                          window.location.href = "/logout";
-                        }}>
-                          <Logout />
-                        </Button>
-                      </div>
+            <div className="text-end my-3">
+                <div className="tabe-outer">
+                    <div className="main-back-heading">
+                        <div className="profile-btns pt-0">
+                          <Button className="default-btn cancel-btn ml-0 product-logout-icon" onClick={() => {
+                            window.location.href = "/logout";
+                          }}>
+                            <Logout />
+                          </Button>
+                        </div>
+                    </div>
+                </div>
               </div>
-            </div>
-            </div>
             </div>
         </div>
         <Row className="justify-content-center">
-          {/* Search Field and Delete Button on a new line */}
           <Col xs={12} className="d-flex justify-content-center my-3">
-            <Form className="d-flex w-100"> {/* Use w-100 for full width */}
-              {/* Search Input */}
+            <div className="d-flex w-100" >
               <Form.Control
                 type="text"
                 placeholder="Search"
@@ -153,9 +153,8 @@ const Products = () => {
                 style={{ flexGrow: 1, height: '100%' }} // Ensures the search input takes available space
                 ref={inputRef} // Attach the ref to the input field
               />
-
-              {/* Delete Button */}
               <button
+                disabled={(searchProduct == '')}
                 className='action-btn'
                 onClick={() => {
                   setSearchProduct(''); // Clear the search field
@@ -165,7 +164,7 @@ const Products = () => {
               >
                 <Remove />
               </button>
-            </Form>
+            </div>
           </Col>
 
           {/* Product Description Area on another line */}
@@ -198,15 +197,15 @@ const Products = () => {
                         </div>
                       ))
                     ) : (
-                      <p>No variants available</p>
+                      <p>No locations available</p>
                     )}
                   </div>
                 ))
               ) : (
-                <p>No products available</p>
+                <p>No locations available</p>
               )
             ) : (
-              <p>Loading products...</p>
+              <p>Loading locations...</p>
             )}
 
           </Col>
